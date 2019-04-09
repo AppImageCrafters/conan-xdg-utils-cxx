@@ -19,13 +19,8 @@ class XdgutilscxxConan(ConanFile):
 
     def build(self):
         cmake = CMake(self)
-        args = []
-
-        # enable fPIC
-        if self.options.fPIC:
-            args.append("-DPOSITION_INDEPENDENT_CODE=ON")
-
-        cmake.configure(source_folder="xdg-utils-cxx", args=args)
+        cmake.definitions["CMAKE_POSITION_INDEPENDENT_CODE"] = self.options.fPIC
+        cmake.configure(source_folder="xdg-utils-cxx")
         cmake.build()
         cmake.install()
 
