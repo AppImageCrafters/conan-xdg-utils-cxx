@@ -27,6 +27,7 @@ class XdgutilscxxConan(ConanFile):
         cmake.install()
 
     def package_info(self):
+        self.cpp_info.libdirs = ["lib/XdgUtils"]
         self.cpp_info.libs = ["XdgUtilsBaseDir", "XdgUtilsDesktopEntry"]
         self.cpp_info.builddirs = ["lib/cmake/XdgUtils/"]
         self.cpp_info.includedirs = ["include/"]
