@@ -10,8 +10,8 @@ class XdgutilscxxConan(ConanFile):
     description = "Implementation of the FreeDesktop specifications to be used in c++ projects"
     topics = ("FreeDesktop", "xdg-utils", "c++")
     settings = "compiler", "build_type", "arch"
-    options = {"fPIC": [True, False]}
-    default_options = {"fPIC": True}
+    options = {"fPIC": [True, False], "shared": [True, False]}
+    default_options = {"fPIC": True, "shared": True}
     build_requires = "cmake_installer/3.13.0@conan/stable"
     generators = ["cmake_paths"]
 
@@ -22,6 +22,7 @@ class XdgutilscxxConan(ConanFile):
         cmake = CMake(self)
         cmake.definitions["CMAKE_PROJECT_XdgUtils_INCLUDE"] = self.build_folder + "/conan_paths.cmake"
         cmake.definitions["CMAKE_POSITION_INDEPENDENT_CODE"] = self.options.fPIC
+        cmake.definitions["XDG_UTILS_SHARED"] = self.options.shared
         cmake.configure(source_folder="xdg-utils-cxx")
         cmake.build()
         cmake.install()
